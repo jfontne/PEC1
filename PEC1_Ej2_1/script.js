@@ -5,6 +5,7 @@ const totalDesti = document.getElementById("amount-two");
 const equivalencia = document.getElementById("rate");
 const intercanvi = document.getElementById("swap");
 const urlAPI = document.getElementById("address");
+const reset = document.getElementById("reset");
 
 //Farem un fetch per llegir les dades de les diferents monedes
 
@@ -16,6 +17,11 @@ function calculate() {
     mOrigen = monedaOrigen.value;
     mDesti=monedaDesti.value;
     uAPI=urlAPI.value;
+    
+    //Comprobem que les unitats no siguien inferiors a 0
+    if(unitatsOrigen.value<0){
+        unitatsOrigen.value=0;
+    }
 
     //Anem a recuperar les dades de l'API de monedes
     fetch(uAPI + '/' + mOrigen)
@@ -46,3 +52,6 @@ monedaOrigen.addEventListener('change',calculate);
 monedaDesti.addEventListener('change',calculate);
 unitatsOrigen.addEventListener('input',calculate);
 intercanvi.addEventListener('click',fesIntercanvi);
+reset.addEventListener('click',()=>{
+    urlAPI.value='https://v6.exchangerate-api.com/v6/cb7945b00b699f1abb428696/latest';
+});
