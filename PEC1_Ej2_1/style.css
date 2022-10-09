@@ -1,5 +1,5 @@
 :root{
-    --primary-color:#5fbaa7;
+    --primary-color:#5fb666;
 }
 
 *{
@@ -7,7 +7,7 @@
 }
 
 body{
-    background-color: #f4f4f4;
+    background-color: #ccc;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
@@ -79,6 +79,20 @@ p{
 
 select:focus,input:focus,button:focus{
     outline: 0;
+}
+
+.address{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.address input{
+    border: 0;
+    font-size: 14px;
+    text-align: right;
+    padding: 5px;
+    width: 90%;
 }
 
 @media (max-width: 600px){
