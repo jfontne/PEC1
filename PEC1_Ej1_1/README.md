@@ -1,1 +1,0 @@
-# Formulari de registre d'usuari

@@ -1,57 +1,145 @@
-const monedaOrigen = document.getElementById("currency-one");
-const monedaDesti = document.getElementById("currency-two");
-const unitatsOrigen = document.getElementById("amount-one");
-const totalDesti = document.getElementById("amount-two");
-const equivalencia = document.getElementById("rate");
-const intercanvi = document.getElementById("swap");
-const urlAPI = document.getElementById("address");
-const reset = document.getElementById("reset");
+const form = document.getElementById('form');
+const username = document.getElementById('username');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const password2 = document.getElementById('password2');
+const age = document.getElementById('age');
+const personalURL = document.getElementById('personalURL');
 
-//Farem un fetch per llegir les dades de les diferents monedes
-
-function calculate() {
-    //recuperem les dades introduïdes
-    let mOrigen;
-    let mDesti;
-    let uAPI;
-    mOrigen = monedaOrigen.value;
-    mDesti=monedaDesti.value;
-    uAPI=urlAPI.value;
+function showError(input,message) {
+    const formControl=input.parentElement;
+    formControl.className = 'form-control error';
+    const small = formControl.querySelector('small');
+    small.innerText = message;
     
-    //Comprobem que les unitats no siguien inferiors a 0
-    if(unitatsOrigen.value<0){
-        unitatsOrigen.value=0;
+}
+
+function showSuccess(input) {
+    const formControl=input.parentElement;
+    formControl.className = 'form-control success';
+}
+
+
+//Comprobem l'email
+function checkEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(re.test(email.value.trim())){
+        showSuccess(email);
+    } else{
+        showError(email,'L\'email te un format incorrecte');
+    }
+}
+
+//Aquí comprobem que els camps estan omplerts
+function checkRequired(inputArray){
+    inputArray.forEach(input => {//buche each per recorre tot l'array
+        if(input.value.trim()===''){
+            showError(input,`${nomCamp(input)} és obligatori`);
+        } else {
+            showSuccess(input);
+        }
+    });
+}
+
+//Posem el nom del camp amb el format correcte
+function nomCamp(input) {
+    //La primera lletra la posarem en majúscules
+    //charAt(pos) retona el caràcter d'aquella posició
+    let primeraLletra; 
+    primeraLletra=input.id.charAt(0).toUpperCase();
+    
+    //La resta del text en minúscules, amb slice començant des de la pos. 1 que es la segona
+    let textRestant; 
+    textRestant=input.id.slice(1);
+    return primeraLletra + textRestant;
+}
+
+//Anem a comprobar les longitud dels camps
+function checkLength(input, min, max) {
+    if(input.value.length < min){
+        showError(input, `${nomCamp(input)} minim de ${min} caràcters.`);
+    } else if(input.value.length > max){
+        showError(input, `${nomCamp(input)} màxim de ${max} caràcters.`);
+    } else {
+        showSuccess(input);
+    }
+}
+
+function checkAge(input){
+    if(input.value>0 && input.value<999){
+        showSuccess(input);
+    } else{
+        showError(input,`${nomCamp(input)} entre 0 i 999 anys`);
+    }
+}
+
+function checkURL(input) {
+    var pattern = /^(http|https)\:\/\/[a-z0-9\.-]+\.[a-z]{2,4}/gi;
+
+    if(!input.value.match(pattern)){
+        showError(input,`${nomCamp(input)} és incorrecte`)
+        } else {
+            showSuccess(input);
+        }
+      }
+
+function checkPasswordsMatch(input1, input2) {
+    if(input1.value!==input2.value){
+        showError(input2,'Les contrasenyes no coincideixen');
+    } else{
+        showSuccess(input1);
+        showSuccess(input2);
+    }
+}
+
+//Events
+form.addEventListener('submit',function(e){
+    e.preventDefault();
+
+    checkRequired([username, email, age, personalURL, password, password2]);
+    checkLength(username, 3, 15);
+    checkLength(password, 6, 25);
+    checkLength(password2, 6, 25);
+    checkEmail(email);
+    checkAge(age);
+    checkURL(personalURL);
+    checkPasswordsMatch(password, password2);
+    
+//PRIMERA VERSIÓ
+/*    //Validar username
+    if (username.value ===''){
+        showError(username,'Username is required');
+    }
+    else{
+        showSuccess(username);
     }
 
-    //Anem a recuperar les dades de l'API de monedes
-    fetch(uAPI + '/' + mOrigen)
-        .then(res=>res.json())
-        .then(data=>{
-            let valor;
-            valor=data.conversion_rates[mDesti];
-            equivalencia.innerHTML=`1 ${mOrigen} = ${valor} ${mDesti}`
-            totalDesti.value=(unitatsOrigen.value*valor).toFixed(2);
-        })
-        .catch(error=>{
-            equivalencia.style.color='#FF0000';
-            equivalencia.innerHTML=error;
-        });
-}
+    //validar email
+    if (email.value ===''){
+        showError(email,'email is required');
+    }
+    else if (!isValidEmail(email.value)) {
+        showError(email,'email is not valid');
+        }
+        else{
+        showSuccess(email);
+     }
 
-function fesIntercanvi() {
-    let moneda1;
-    let moneda2;
-    moneda1 = monedaOrigen.value;
-    moneda2 = monedaDesti.value;
-    monedaOrigen.value = moneda2;
-    monedaDesti.value = moneda1;
-    calculate();
-}
+    //validar password
+    if (password.value ===''){
+        showError(password,'password is required');
+    }
+    else{
+        showSuccess(password);
+    }
 
-monedaOrigen.addEventListener('change',calculate);
-monedaDesti.addEventListener('change',calculate);
-unitatsOrigen.addEventListener('input',calculate);
-intercanvi.addEventListener('click',fesIntercanvi);
-reset.addEventListener('click',()=>{
-    urlAPI.value='https://v6.exchangerate-api.com/v6/cb7945b00b699f1abb428696/latest';
+    //validar password2    
+    if (password2.value ===''){
+        showError(password2,'password2 is required');
+    }
+    else{
+        showSuccess(password2);
+    }
+*/
 });
+

@@ -1,1 +1,1 @@
-# Conversor de monedes
+# Formulari de registre d'usuari
