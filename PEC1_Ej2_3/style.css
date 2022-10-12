@@ -16,6 +16,14 @@ body{
     margin: 0;
 }
 
+.currency{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    margin: 15px 15px;
+}
+
 .movie-container{
     margin: 20px 0;
 }
