@@ -67,5 +67,36 @@ container.addEventListener('click', e => {
 
 });
 
+function calculate() {
+    //recuperem les dades introduïdes
+    let mOrigen;
+    let mDesti;
+    let uAPI;
+    mOrigen = 'USD';
+    mDesti=moneda.value;
+    uAPI=`https://v6.exchangerate-api.com/v6/cb7945b00b699f1abb428696/latest/${mOrigen}` ;
+    
+    //Comprobem que les unitats no siguien inferiors a 0
+    if(unitatsOrigen.value<0){
+        unitatsOrigen.value=0;
+    }
+
+    //Anem a recuperar les dades de l'API de monedes
+    fetch(uAPI)
+        .then(res=>res.json())
+        .then(data=>{
+            let valor;
+            valor=data.conversion_rates[mDesti];
+            equivalencia.innerHTML=`1 ${mOrigen} = ${valor} ${mDesti}`
+            totalDesti.value=(unitatsOrigen.value*valor).toFixed(2);
+        })
+        .catch(error=>{
+            equivalencia.style.color='#FF0000';
+            equivalencia.innerHTML=error;
+        });
+}
+
+
+
 //entrades inicials i total
 updateSelectedCount();
