@@ -4,6 +4,7 @@ const count = document.getElementById('count');
 const total = document.getElementById('total');
 const movieSelect = document.getElementById('movie');
 const moneda = document.getElementById('currency-one');
+var rate;
 
 populateUI();
 
@@ -28,7 +29,7 @@ function updateSelectedCount() {
 
     const selectSeatsCount = selectedSeats.length;
     count.innerText = selectSeatsCount;
-    total.innerText = selectSeatsCount * ticketPrice;
+    total.innerText = (selectSeatsCount * ticketPrice).toFixed(2);
 }
 
 //Consultem les dades desades localment
@@ -50,18 +51,24 @@ function populateUI() {
 }
 
 //Event per el canvi de moneda
-moneda.addEventListener('change', e => {
-    let rate; 
-    rate = rateCalculate('USD',e.target.value);
+moneda.addEventListener('change', e => { 
+    let longitudSelect;
+    
+    longitudSelect=movieSelect.options.length;
+    
+    rateCalculate('USD',e.target.value);
     if(rate>0){
-        ticketPrice = +e.target.value*rate;}
-        setMovieData(e.target.selectedIndex, e.target.value);
-        updateSelectedCount();
+        ticketPrice = +movieSelect.value*rate;
+        }
+    for (let i = 0; i <=longitudSelect; i++) {
+        movieSelect.options[i].textContent = +rate;
+    }
+    
 });
 
 //Event de la tria de la peli
 movieSelect.addEventListener('change', e => {
-    let rate = rateCalculate('USD',e.target.value);
+    rateCalculate('USD',moneda.value);
     if(rate>0){
         ticketPrice = +e.target.value*rate;}
         setMovieData(e.target.selectedIndex, e.target.value);
@@ -84,19 +91,16 @@ function rateCalculate(monedaOrigen,monedaDesti) {
     var uAPI;
     var mDesti;
     mDesti=monedaDesti;
-    uAPI=`https://v6.exchangerate-api.com/v6/cb7945b00b699f1abb428696/latest/${monedaOrigen}` ;
-    
-    
+    uAPI=`https://v6.exchangerate-api.com/v6/cb7945b00b699f1abb428696/latest/${monedaOrigen}`; 
     //Anem a recuperar les dades de l'API de monedes
     fetch(uAPI)
         .then(res=>res.json())
         .then(data=>{
-            let valor;
-            valor=data.conversion_rates[monedaDesti];
-            return valor;
+            console.log(data);
+            rate=data.conversion_rates[mDesti];
         })
         .catch(error=>{
-            return 0;
+            rate=0;
         });
 }
 
