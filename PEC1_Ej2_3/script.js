@@ -49,11 +49,22 @@ function populateUI() {
     }
 }
 
+//Event per el canvi de moneda
+moneda.addEventListener('change', e => {
+    let rate = rateCalculate('USD',e.value);
+    if(rate>0){
+        ticketPrice = +e.target.value*rate;}
+        setMovieData(e.target.selectedIndex, e.target.value);
+        updateSelectedCount();
+});
+
 //Event de la tria de la peli
 movieSelect.addEventListener('change', e => {
-    ticketPrice = +e.target.value;
-    setMovieData(e.target.selectedIndex, e.target.value);
-    updateSelectedCount();
+    let rate = rateCalculate('USD',e.value);
+    if(rate>0){
+        ticketPrice = +e.target.value*rate;}
+        setMovieData(e.target.selectedIndex, e.target.value);
+        updateSelectedCount();
 });
 
 
@@ -67,32 +78,25 @@ container.addEventListener('click', e => {
 
 });
 
-function calculate() {
+function rateCalculate(monedaOrigen,monedaDesti) {
     //recuperem les dades introduïdes
     let mOrigen;
     let mDesti;
     let uAPI;
-    mOrigen = 'USD';
     mDesti=moneda.value;
-    uAPI=`https://v6.exchangerate-api.com/v6/cb7945b00b699f1abb428696/latest/${mOrigen}` ;
+    uAPI=`https://v6.exchangerate-api.com/v6/cb7945b00b699f1abb428696/latest/${monedaOrigen}` ;
     
-    //Comprobem que les unitats no siguien inferiors a 0
-    if(unitatsOrigen.value<0){
-        unitatsOrigen.value=0;
-    }
-
+    
     //Anem a recuperar les dades de l'API de monedes
     fetch(uAPI)
         .then(res=>res.json())
         .then(data=>{
             let valor;
-            valor=data.conversion_rates[mDesti];
-            equivalencia.innerHTML=`1 ${mOrigen} = ${valor} ${mDesti}`
-            totalDesti.value=(unitatsOrigen.value*valor).toFixed(2);
+            valor=data.conversion_rates[monedaDesti];
+            return valor;
         })
         .catch(error=>{
-            equivalencia.style.color='#FF0000';
-            equivalencia.innerHTML=error;
+            return 0;
         });
 }
 
