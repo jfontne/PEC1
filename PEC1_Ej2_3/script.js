@@ -51,7 +51,8 @@ function populateUI() {
 
 //Event per el canvi de moneda
 moneda.addEventListener('change', e => {
-    let rate = rateCalculate('USD',e.value);
+    let rate; 
+    rate = rateCalculate('USD',e.target.value);
     if(rate>0){
         ticketPrice = +e.target.value*rate;}
         setMovieData(e.target.selectedIndex, e.target.value);
@@ -60,7 +61,7 @@ moneda.addEventListener('change', e => {
 
 //Event de la tria de la peli
 movieSelect.addEventListener('change', e => {
-    let rate = rateCalculate('USD',e.value);
+    let rate = rateCalculate('USD',e.target.value);
     if(rate>0){
         ticketPrice = +e.target.value*rate;}
         setMovieData(e.target.selectedIndex, e.target.value);
@@ -80,10 +81,9 @@ container.addEventListener('click', e => {
 
 function rateCalculate(monedaOrigen,monedaDesti) {
     //recuperem les dades introduïdes
-    let mOrigen;
-    let mDesti;
-    let uAPI;
-    mDesti=moneda.value;
+    var uAPI;
+    var mDesti;
+    mDesti=monedaDesti;
     uAPI=`https://v6.exchangerate-api.com/v6/cb7945b00b699f1abb428696/latest/${monedaOrigen}` ;
     
     
