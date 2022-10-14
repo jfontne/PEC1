@@ -21,15 +21,18 @@ function showSuccess(input) {
 
 
 //Comprobem l'email
-function checkEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(re.test(email.value.trim())){
-        showSuccess(email);
-    } else{
-        showError(email,'L\'email te un format incorrecte');
+function checkEmail(input, required) {
+    if(required && input.value.length==0){
+        showError(input, `${nomCamp(input)} és obligatori`);
+    } else{ 
+        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(re.test(input.value.trim())){
+            showSuccess(input);
+        } else{
+            showError(input,'L\'email te un format incorrecte');
+        }
     }
 }
-
 //Aquí comprobem que els camps estan omplerts
 function checkRequired(inputArray){
     inputArray.forEach(input => {//buche each per recorre tot l'array
@@ -55,40 +58,56 @@ function nomCamp(input) {
 }
 
 //Anem a comprobar les longitud dels camps
-function checkLength(input, min, max) {
-    if(input.value.length < min){
-        showError(input, `${nomCamp(input)} minim de ${min} caràcters.`);
-    } else if(input.value.length > max){
-        showError(input, `${nomCamp(input)} màxim de ${max} caràcters.`);
-    } else {
-        showSuccess(input);
+function checkLength(input, min, max, required) {
+    if(required && input.value.length==0){
+            showError(input, `${nomCamp(input)} és obligatori`);
+    } else{   
+            if(input.value.length < min){
+                showError(input, `${nomCamp(input)} minim de ${min} caràcters.`);
+            } else if(input.value.length > max){
+                showError(input, `${nomCamp(input)} màxim de ${max} caràcters.`);
+            } else {
+                showSuccess(input);
+            }
     }
 }
 
-function checkAge(input){
-    if(input.value>0 && input.value<999){
-        showSuccess(input);
-    } else{
-        showError(input,`${nomCamp(input)} entre 0 i 999 anys`);
-    }
-}
 
-function checkURL(input) {
-    var pattern = /^(http|https)\:\/\/[a-z0-9\.-]+\.[a-z]{2,4}/gi;
-
-    if(!input.value.match(pattern)){
-        showError(input,`${nomCamp(input)} és incorrecte`)
-        } else {
+function checkAge(input, min, max, required){
+    if(required && input.value.length==0){
+        showError(input, `${nomCamp(input)} és obligatori`);
+    } else{ 
+        if(input.value>=min && input.value<=max){
             showSuccess(input);
+        } else{
+            showError(input,`${nomCamp(input)} entre 0 i 999 anys`);
         }
-      }
+    }
+}
 
-function checkPasswordsMatch(input1, input2) {
-    if(input1.value!==input2.value){
-        showError(input2,'Les contrasenyes no coincideixen');
-    } else{
-        showSuccess(input1);
-        showSuccess(input2);
+function checkURL(input, required) {
+    var pattern = /^(http|https)\:\/\/[a-z0-9\.-]+\.[a-z]{2,4}/gi;
+    if(required && input.value.length==0){
+        showError(input, `${nomCamp(input)} és obligatori`);
+    } else{ 
+        if(!input.value.match(pattern)){
+            showError(input,`${nomCamp(input)} és incorrecte`)
+            } else {
+                showSuccess(input);
+            }
+        }
+    }        
+function checkPasswordsMatch(input1, input2, required) {
+    if(required && input1.value.length==0){
+        showError(input1, `${nomCamp(input)} és obligatori`);
+    } else{ 
+    
+        if(input1.value!==input2.value){
+            showError(input2,'Les contrasenyes no coincideixen');
+        } else{
+            showSuccess(input1);
+            showSuccess(input2);
+        }
     }
 }
 
@@ -96,14 +115,15 @@ function checkPasswordsMatch(input1, input2) {
 form.addEventListener('submit',function(e){
     e.preventDefault();
 
-    checkRequired([username, email, age, personalURL, password, password2]);
-    checkLength(username, 3, 15);
-    checkLength(password, 6, 25);
-    checkLength(password2, 6, 25);
-    checkEmail(email);
-    checkAge(age);
-    checkURL(personalURL);
-    checkPasswordsMatch(password, password2);
+    
+    checkLength(username, 3, 15, true);
+    checkLength(password, 6, 25, true);
+    checkLength(password2, 6, 25, true);
+    checkEmail(email, true);
+    checkAge(age, 0, 999, true);
+    checkURL(personalURL, true);
+    checkPasswordsMatch(password, password2, true);
+    //checkRequired([username, email, age, personalURL, password, password2]);
     
 //PRIMERA VERSIÓ
 /*    //Validar username
