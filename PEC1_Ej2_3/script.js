@@ -19,6 +19,25 @@ function setMovieData(movieIndex, moviePrice) {
     localStorage.setItem('selectedMoviePrice', moviePrice);
 }
 
+//Guardem les dades de les monedes
+function guardarMoneda(indexMonedaTriada,pelis) {
+    let opcions = [];
+    let preus = [];
+    let longitud = pelis.length;
+
+    for (let i = 0; i < longitud; i++) {
+        opcions.push(pelis.options[i].textContent);
+        preus.push(pelis.options[i].value);
+    }
+    console.log(opcions);
+    console.log(preus);
+
+    localStorage.setItem('indexMonedaTriada',indexMonedaTriada);
+    localStorage.setItem('pelis',JSON.stringify(opcions));
+    localStorage.setItem('preus',JSON.stringify(preus));
+
+}
+
 function updateSelectedCount() {
     const selectedSeats = document.querySelectorAll('.row .seat.selected');
     
@@ -58,6 +77,25 @@ function populateUI() {
         pelis.push(movieSelect.options[i].textContent);
         preuPelis.push(movieSelect.options[i].value);
     }
+
+    //Recuperem les opcions de moneda i desplegable de pelis personalitzat
+    const monedaTriada = localStorage.getItem('indexMonedaTriada');
+    let opcions = [];
+    let preus = [];
+    
+    //Recuperem les dades desades
+    opcions = JSON.parse(localStorage.getItem('pelis'));
+    preus = JSON.parse(localStorage.getItem('preus'));
+    
+    
+    if(opcions !== null){
+    
+        for (let i = 0; i < opcions.length; i++) {
+            movieSelect.options[i].textContent = opcions[i];
+            movieSelect.options[i].value = preus[i];
+        }
+    }
+    moneda.selectedIndex = monedaTriada;
 }
 
 //Event per el canvi de moneda
@@ -82,7 +120,10 @@ moneda.addEventListener('change', e =>{
                     nouTextOption=pelis[i].replace(preuPelis[i],valorCanvi);
                     nouTextOption=nouTextOption.replace('$', mDesti + ' ');
                     movieSelect.options[i].textContent = nouTextOption;
-                    movieSelect.options[i].value = valorCanvi;    
+                    movieSelect.options[i].value = valorCanvi;
+                    //console.log(e.target.selectedIndex);
+                    //console.log(movieSelect.options);
+                    guardarMoneda(e.target.selectedIndex,movieSelect);    
                 }
             
             ticketPrice = +movieSelect.value;
