@@ -24,11 +24,15 @@ function calculate() {
     }
 
     //Anem a recuperar les dades de l'API de monedes
+    equivalencia.style.color='#FFFF00';
+    equivalencia.innerHTML="calculando..";
+
     fetch(uAPI + '/' + mOrigen)
         .then(res=>res.json())
         .then(data=>{
             let valor;
             valor=data.conversion_rates[mDesti];
+            equivalencia.style.color='#5fb666'
             equivalencia.innerHTML=`1 ${mOrigen} = ${valor} ${mDesti}`
             totalDesti.value=(unitatsOrigen.value*valor).toFixed(2);
         })
