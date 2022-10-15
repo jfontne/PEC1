@@ -46,7 +46,7 @@ audio o un vídeo, grabar un vídeo con tu webcam, etc.
     }
 ~~~
 
-4. sñlkflñsdfk
+4. Reutilización de código
 
 ### Explica brevemente en qué consisten los sourcemaps.
 * El sourcemap es un índice/enlace entre el codigo escrito originalmente y el código resultante para la web. Una vez en producción el código generado, comprimido y ofuscado se puede volver ilegible para su depuración. Si necesitases debuguear algo no serías capaz sin la ayuda de un sourcemap. Este le dice a la herramienta depuradora como volver a reconstruir el código para que sea legible, ofreciéndotelo así para su posterior debugueo.
@@ -58,7 +58,12 @@ audio o un vídeo, grabar un vídeo con tu webcam, etc.
 
 ## El flujo de trabajo profesional en front-end hace indispensable el uso de herramientas como controles de versiones y herramientas de gestión de módulos.
 ### Cita al menos dos sistemas de control de versiones y dos herramientas de gestión de módulos.
-* skdfjlsfjlsdfj
+* Gestión de versiones
+  * git
+  * cvs
+* Gestión de módulos
+  * npm
+  * parcel
 
 ### Cita y explica al menos 3 comandos de Git.
 * vamos a ver tres comandos báicos de git
@@ -75,4 +80,10 @@ git push https://github.com/jfontne/PEC1
 ~~~
 
 ### Cita y explica brevemente las características más definitorias de WebPack.
-* klsjflskjflsdjf
+* Webpack se define como un empaquetador de módulos y puede realizar las siguientes características:
+
+  * Crear proyectos más escalables, al poder generar módulos podemos gestionarlos mejor que ficheros simples.
+  * Gestión de dependencias
+  * Los módulos pueden contener cualquier tipo de documento (html, css, png..)
+  * Servidor de desarrollo
+  * Carga y uso de módulos de todo tipo (AMD, CommonJS o ES2015)
