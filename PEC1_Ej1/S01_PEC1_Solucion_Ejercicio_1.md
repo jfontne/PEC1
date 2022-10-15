@@ -27,6 +27,14 @@ audio o un vídeo, grabar un vídeo con tu webcam, etc.
 
 [Fuente MDN web docs](https://developer.mozilla.org/es/docs/Web/CSS/Media_Queries/Using_media_queries)
 
+### Cita al menos 4 de las características principales de TypeScript
+1. TypeScript tiene tipado de variables: Es importante tener un control de tipo de datos que puede almacenar una variable.
+2. Compila a Javascript: Se compila en JavaScript para hacerlo compatible con cualquier navegador, esto nos permite utilizarlo en todos los escenarios web.
+3. Lenguaje moderno y en constante evolución: Dado que TypeScript no es un estándar dependiente de una organización de estandarización como Javascript.
+4. Superset de Javascript: TypeScript es un lenguaje creado encima de Javascript, por ello todo código Javascript es un código válido TypeScript.
+
+
+
 ## El lenguaje CSS es muy rígido, poco práctico y ordenado a la hora de programar. Para evitar este problema se han creado los preprocesadores CSS, que ofrecen evidentes ventajas.
 ### Cita al menos 2 de estos preprocesadores.
 1. SASS
