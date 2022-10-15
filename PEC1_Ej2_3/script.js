@@ -1,16 +1,21 @@
+//Recuperem elements HTML per poder tractar-los
 const container = document.querySelector('.container');
 const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.getElementById('count');
 const total = document.getElementById('total');
+const monedaTotal = document.getElementById('moneda');
 const movieSelect = document.getElementById('movie');
 const moneda = document.getElementById('currency-one');
+
+//En aquestes arrays guardarem les dades inicials del desplegable de pelicules
 const pelis = [];
 const preuPelis = [];
 
+//Recuperem dades desades al navegador per si actualitzem la pàgina
 populateUI();
 
 
-//posant un + davant convertim un string en un number 
+//posant un + davant convertim un string en un número 
 var ticketPrice = +movieSelect.value;
 
 //Guardem la peli seleccionada i el preu
@@ -19,7 +24,7 @@ function setMovieData(movieIndex, moviePrice) {
     localStorage.setItem('selectedMoviePrice', moviePrice);
 }
 
-//Guardem les dades de les monedes
+//Guardem les dades de les monedes i el desplegable modificat amb la moneda triada
 function guardarMoneda(indexMonedaTriada,pelis) {
     let opcions = [];
     let preus = [];
@@ -29,13 +34,13 @@ function guardarMoneda(indexMonedaTriada,pelis) {
         opcions.push(pelis.options[i].textContent);
         preus.push(pelis.options[i].value);
     }
-    console.log(opcions);
-    console.log(preus);
 
+    //Desem dades de la moneda triada i els arrays de les pelis i preus
     localStorage.setItem('indexMonedaTriada',indexMonedaTriada);
     localStorage.setItem('pelis',JSON.stringify(opcions));
     localStorage.setItem('preus',JSON.stringify(preus));
-
+    //NOTA: localStorage només pot guardar strings, per poder guardar un
+    //array ho hem de desar amb format JSON
 }
 
 function updateSelectedCount() {
@@ -49,7 +54,10 @@ function updateSelectedCount() {
     localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
 
     const selectSeatsCount = selectedSeats.length;
+
+    //Actualitzem la frase inferior dels totals
     count.innerText = selectSeatsCount;
+    monedaTotal.innerText = moneda.value;
     total.innerText = (selectSeatsCount * ticketPrice).toFixed(2);
 }
 
@@ -72,7 +80,7 @@ function populateUI() {
     }
 
 
-    //Guardem els valors originals del desplegable de pelis
+    //Guardem els valors originals i preus del desplegable de pelis
     for (let i = 0; i<=movieSelect.length-1; i++) {
         pelis.push(movieSelect.options[i].textContent);
         preuPelis.push(movieSelect.options[i].value);
@@ -87,7 +95,7 @@ function populateUI() {
     opcions = JSON.parse(localStorage.getItem('pelis'));
     preus = JSON.parse(localStorage.getItem('preus'));
     
-    
+    //Volquem les dades al desplegable de pelis
     if(opcions !== null){
     
         for (let i = 0; i < opcions.length; i++) {
@@ -95,6 +103,8 @@ function populateUI() {
             movieSelect.options[i].value = preus[i];
         }
     }
+
+    //Tornem a posar la opció seleccionada anteriorment al desplegable moneda
     moneda.selectedIndex = monedaTriada;
 }
 
@@ -108,9 +118,9 @@ moneda.addEventListener('change', e =>{
         mDesti=e.target.value;
         uAPI=`https://v6.exchangerate-api.com/v6/cb7945b00b699f1abb428696/latest/${mOrigen}`; 
         //Anem a recuperar les dades de l'API de monedes
-        fetch(uAPI)
-            .then(res=>res.json())
-            .then(data=>{
+        fetch(uAPI) //Connectem amb l'API per recuperar les dades dels ratios
+            .then(res=>res.json()) //El resultat en JSON
+            .then(data=>{ //Si es exitós data tindrà les dades de l'API
                 let rate;
                 let nouTextOption;
                 let valorCanvi;
@@ -121,8 +131,6 @@ moneda.addEventListener('change', e =>{
                     nouTextOption=nouTextOption.replace('$', mDesti + ' ');
                     movieSelect.options[i].textContent = nouTextOption;
                     movieSelect.options[i].value = valorCanvi;
-                    //console.log(e.target.selectedIndex);
-                    //console.log(movieSelect.options);
                     guardarMoneda(e.target.selectedIndex,movieSelect);    
                 }
             
@@ -130,7 +138,7 @@ moneda.addEventListener('change', e =>{
             updateSelectedCount();
                 
             })
-            .catch(error=>{
+            .catch(error=>{//Si fetch falla anirem aquí
                 rate=0;
             });
     }
@@ -138,7 +146,6 @@ moneda.addEventListener('change', e =>{
 
 //Event de la tria de la peli
 movieSelect.addEventListener('change', e => {
-    //rateCalculate('USD',moneda.value);
         ticketPrice = +e.target.value;
         setMovieData(e.target.selectedIndex, e.target.value);
         updateSelectedCount();
@@ -154,10 +161,6 @@ container.addEventListener('click', e => {
 
 
 });
-
-
-
-
 
 //entrades inicials i total
 updateSelectedCount();
