@@ -1,6 +1,6 @@
 # PEC1 Front-end UOC
 ## Datos Alumno
-* jfontne@uoc.edu
+* jfontne
 * Jordi Font Nebot
 
 ## Previos
