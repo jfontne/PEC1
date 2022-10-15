@@ -22,21 +22,21 @@ function calculate() {
     if(unitatsOrigen.value<0){
         unitatsOrigen.value=0;
     }
+    
+    //Abans de començar la consulta visualitcem un GIF animat d'espera.
+    equivalencia.innerHTML='<img style="width: 40px" src="img/espere.gif">'
 
     //Anem a recuperar les dades de l'API de monedes
-    equivalencia.style.color='#FFFF00';
-    equivalencia.innerHTML="calculando..";
-
     fetch(uAPI + '/' + mOrigen)
-        .then(res=>res.json())
-        .then(data=>{
+        .then(res=>res.json()) //Format JSON
+        .then(data=>{ //Si la consulta és correcte guardarà les dades a 'data'
             let valor;
             valor=data.conversion_rates[mDesti];
             equivalencia.style.color='#5fb666'
             equivalencia.innerHTML=`1 ${mOrigen} = ${valor} ${mDesti}`
             totalDesti.value=(unitatsOrigen.value*valor).toFixed(2);
         })
-        .catch(error=>{
+        .catch(error=>{ //Si es produeix un error
             equivalencia.style.color='#FF0000';
             equivalencia.innerHTML=error;
         });

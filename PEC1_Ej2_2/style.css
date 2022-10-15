@@ -7,7 +7,7 @@
 }
 
 body{
-    background-color: #ccc;
+    background-color: #eee;
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@ p{
     background-color: var(--primary-color);
     cursor: pointer;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 18px;
     padding: 5px 12px;
 
 }
@@ -58,7 +58,9 @@ p{
 }
 
 .currency input{
-    border: 0;
+    border: 1;
+    border-color: #eee;
+    border-radius: 5px;
     background: transparent;
     font-size: 30px;
     text-align: right;
@@ -73,7 +75,7 @@ p{
 
 .rate{
     color: var(--primary-color);
-    font-size: 14px;
+    font-size: 18px;
     padding: 0 10px;
 }
 
