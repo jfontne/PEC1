@@ -28,3 +28,40 @@ audio o un vídeo, grabar un vídeo con tu webcam, etc.
 [Fuente MDN web docs](https://developer.mozilla.org/es/docs/Web/CSS/Media_Queries/Using_media_queries)
 
 ## El lenguaje CSS es muy rígido, poco práctico y ordenado a la hora de programar. Para evitar este problema se han creado los preprocesadores CSS, que ofrecen evidentes ventajas.
+### Cita al menos 2 de estos preprocesadores.
+1. SASS
+2. LESS
+3. STYLUS
+
+### Cita al menos 4 ventajas que ofrecen estos preprocesadores.
+1. Código mucho más fácil y simple.
+2. Uso de herramientas más complejas.
+3. Uso de variables como un lenguaje de programación.
+   1. Ejemplo:
+
+~~~
+   $color-fondos: #F55;
+    h1 {
+      background-color: $color-fondos;
+    }
+~~~
+
+4. sñlkflñsdfk
+
+### Explica brevemente en qué consisten los sourcemaps.
+* El sourcemap es un índice/enlace entre el codigo escrito originalmente y el código resultante para la web. Una vez en producción el código generado, comprimido y ofuscado se puede volver ilegible para su depuración. Si necesitases debuguear algo no serías capaz sin la ayuda de un sourcemap. Este le dice a la herramienta depuradora como volver a reconstruir el código para que sea legible, ofreciéndotelo así para su posterior debugueo.
+
+### Explica qué es un transpilador.
+* Un transpilador transforma un codigo escrito en un lenguaje a otro normalmente de más bajo nivel. Esto puede ser muy útil, por ejemplo, para transformar un codigo escrito que no sea compatible con navegadores actuales a codigo que sea 100% compatible.
+
+[fuente: wikipedia](https://es.wikipedia.org/wiki/Transpilador)
+
+## El flujo de trabajo profesional en front-end hace indispensable el uso de herramientas como controles de versiones y herramientas de gestión de módulos.
+### Cita al menos dos sistemas de control de versiones y dos herramientas de gestión de módulos.
+* skdfjlsfjlsdfj
+
+### Cita y explica al menos 3 comandos de Git.
+* sdkjfkljflsd
+
+### Cita y explica brevemente las características más definitorias de WebPack.
+* klsjflskjflsdjf
