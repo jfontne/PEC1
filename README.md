@@ -1,23 +1,31 @@
-# PEC1 Exercici 1
-## Dades Alumne
+# PEC1 Front-end UOC
+## Datos Alumno
 * jfontne@uoc.edu
 * Jordi Font Nebot
 
-## Descripció pràctica
-* La instal·lació de git des de Linux ha estat molt fàcil,en aquest cas estic utilitzant Elementary OS que està basada en Ubuntu a l'igual que una altre distribució que utilitzo molt habitualment que és Linux Mint, per fer-ho utilitzarem el terminal i amb la següent instrucció:
+## Previos
+
+* La instalación de git desde Linux ha estado muy fácil,en este caso estoy utilizando Elementary HUESO que está basada en Ubuntu al igual que una otro distribución que utilizo muy habitualmente que es Linux Mint, para hacerlo utilizaremos el terminal y con la siguiente instrucción:
   ~~~
   sudo apt install git
   ~~~
-  ![git install](imatges/install_git.png "Instal·lació git")
-
-* Una vegada instal·lat utilitzarem les següets comandes per configurar dades generals del nostre git
+ 
+* Una vez instalado utilizaremos los siguientes comandos para configurar datos generales de nuestro git
   ~~~
   git config --global user.name "Jordi Font"
   git config --global user.email “jfontne@uoc.edu”
   ~~~
-  Aquí veiem el resultat
-  ![git info](imatges/dadesGit.png "Dades git")
-  
-  
-  
+
+## Ejercicio 1 Teórico
+
+[Ejercicio teórico](PEC1_Ej1/S01_PEC1_Solucion_Ejercicio_1.md)
+
+## Ejercicio 2.1 - Validación de formularios
+[Ejercicio 2.1](PEC1_Ej2_1/)
+
+## Ejercicio 2.2 - Calculadora conversora de monedas
+[Ejercicio 2.2](PEC1_Ej2_2/)
+
+## Ejercicio 2.3 - Reserva de entradas cine
+[Ejercicio 2.3](PEC1_Ej2_3/)
 
