@@ -19,4 +19,5 @@
   ![git info](imatges/dadesGit.png "Dades git")
   
   
+  
 
