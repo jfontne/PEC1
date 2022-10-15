@@ -5,7 +5,7 @@
 
 ## Previos
 
-* La instalación de git desde Linux ha estado muy fácil,en este caso estoy utilizando Elementary HUESO que está basada en Ubuntu al igual que una otro distribución que utilizo muy habitualmente que es Linux Mint, para hacerlo utilizaremos el terminal y con la siguiente instrucción:
+* La instalación de git desde Linux ha estado muy fácil,en este caso estoy utilizando *Elementary OS* que está basada en Ubuntu al igual que una otro distribución que utilizo muy habitualmente que es *Linux Mint*, para hacerlo utilizaremos el terminal y con la siguiente instrucción:
   ~~~
   sudo apt install git
   ~~~
