@@ -34,7 +34,7 @@ function checkEmail(input, required) {
     }
 }
 //Aquí comprobem que els camps estan omplerts
-function checkRequired(inputArray){
+/*function checkRequired(inputArray){
     inputArray.forEach(input => {//buche each per recorre tot l'array
         if(input.value.trim()===''){
             showError(input,`${nomCamp(input)} és obligatori`);
@@ -42,7 +42,7 @@ function checkRequired(inputArray){
             showSuccess(input);
         }
     });
-}
+}*/
 
 //Posem el nom del camp amb el format correcte
 function nomCamp(input) {
@@ -57,7 +57,7 @@ function nomCamp(input) {
     return primeraLletra + textRestant;
 }
 
-//Anem a comprobar les longitud dels camps
+//Anem a comprobar les longitud dels camps i si és obligatori
 function checkLength(input, min, max, required) {
     if(required && input.value.length==0){
             showError(input, `${nomCamp(input)} és obligatori`);
@@ -80,7 +80,7 @@ function checkAge(input, min, max, required){
         if(input.value>=min && input.value<=max){
             showSuccess(input);
         } else{
-            showError(input,`${nomCamp(input)} entre 0 i 999 anys`);
+            showError(input,`${nomCamp(input)} entre ${min} i ${max} anys`);
         }
     }
 }
@@ -123,43 +123,6 @@ form.addEventListener('submit',function(e){
     checkAge(age, 0, 999, true);
     checkURL(personalURL, true);
     checkPasswordsMatch(password, password2, true);
-    //checkRequired([username, email, age, personalURL, password, password2]);
-    
-//PRIMERA VERSIÓ
-/*    //Validar username
-    if (username.value ===''){
-        showError(username,'Username is required');
-    }
-    else{
-        showSuccess(username);
-    }
-
-    //validar email
-    if (email.value ===''){
-        showError(email,'email is required');
-    }
-    else if (!isValidEmail(email.value)) {
-        showError(email,'email is not valid');
-        }
-        else{
-        showSuccess(email);
-     }
-
-    //validar password
-    if (password.value ===''){
-        showError(password,'password is required');
-    }
-    else{
-        showSuccess(password);
-    }
-
-    //validar password2    
-    if (password2.value ===''){
-        showError(password2,'password2 is required');
-    }
-    else{
-        showSuccess(password2);
-    }
-*/
+  
 });
 
