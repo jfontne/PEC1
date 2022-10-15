@@ -61,7 +61,18 @@ audio o un vídeo, grabar un vídeo con tu webcam, etc.
 * skdfjlsfjlsdfj
 
 ### Cita y explica al menos 3 comandos de Git.
-* sdkjfkljflsd
+* vamos a ver tres comandos báicos de git
+
+~~~
+git add README.md
+//Marcamos un fichero modificado para subirlo a nuestro repositorio
+
+git commit -m "Nova versió del fitxer README.md"
+//Antes de poder subir el fichero tenemos que comentarlo para ver un pequeño comentario orientativo
+
+git push https://github.com/jfontne/PEC1
+//Aquí realizamos la subida del fichero/s marcados anteriormente a nuestro repositorio
+~~~
 
 ### Cita y explica brevemente las características más definitorias de WebPack.
 * klsjflskjflsdjf
